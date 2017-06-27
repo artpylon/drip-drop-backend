@@ -1,10 +1,6 @@
 const mongoose = require('mongoose')
 
 const fileSchema = new mongoose.Schema({
-  text: {
-    type: String,
-    required: true
-  },
   _owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
@@ -18,8 +14,11 @@ const fileSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  tags: {
-    type: String
+  pendingReview: {
+    type: Boolean
+  },
+  complete: {
+    type: Boolean
   }
 }, {
   timestamps: true,
