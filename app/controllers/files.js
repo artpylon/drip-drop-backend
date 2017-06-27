@@ -8,6 +8,11 @@ const authenticate = require('./concerns/authenticate')
 const setUser = require('./concerns/set-current-user')
 const setModel = require('./concerns/set-mongoose-model')
 
+const multer = require('multer')
+const multerUpload = multer({ dest: '/tmp/' })
+
+const awsUpload = require('lib/aws-upload')
+
 const index = (req, res, next) => {
   File.find()
     .then(files => res.json({
@@ -24,15 +29,18 @@ const show = (req, res) => {
 }
 
 const create = (req, res, next) => {
-  const file = Object.assign(req.body.file, {
-    _owner: req.user._id
-  })
-  File.create(file)
-    .then(file =>
-      res.status(201)
-        .json({
-          file: file.toJSON({ virtuals: true, user: req.user })
-        }))
+  const awsFile = {
+    path: req.file.originalname,
+    title: req.body.image.title
+  }
+  awsUpload(awsFile)
+    .then((s3Response) => {
+      return File.create({
+        url: s3Response.Location,
+        title: s3Response.Key
+      })
+    })
+    .then((upload) => res.status(201).json({upload}))
     .catch(next)
 }
 
@@ -57,6 +65,7 @@ module.exports = controller({
   destroy
 }, { before: [
   { method: setUser, only: ['destroy', 'update'] },
+  { method: multerUpload.single('image[file]'), only: ['create'] },
   { method: authenticate, except: ['index', 'show'] },
   { method: setModel(File), only: ['show', 'destroy', 'update'] },
   { method: setModel(File, { forUser: true }), only: ['update', 'destroy'] }
