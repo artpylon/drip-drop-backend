@@ -29,18 +29,20 @@ const show = (req, res) => {
 }
 
 const create = (req, res, next) => {
+  console.log('req is ', req)
   const awsFile = {
     path: req.file.originalname,
     name: req.body.file.name
   }
   awsUpload(awsFile)
     .then((s3Response) => {
+      console.log('s3Response is ', s3Response)
       return File.create({
         url: s3Response.Location,
         title: s3Response.Key
       })
     })
-    .then((upload) => res.status(201).json({upload}))
+    .then((file) => res.status(201).json({file}))
     .catch(next)
 }
 
