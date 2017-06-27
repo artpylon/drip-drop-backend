@@ -31,7 +31,7 @@ const show = (req, res) => {
 const create = (req, res, next) => {
   const awsFile = {
     path: req.file.originalname,
-    title: req.body.image.title
+    name: req.body.file.name
   }
   awsUpload(awsFile)
     .then((s3Response) => {
@@ -65,7 +65,7 @@ module.exports = controller({
   destroy
 }, { before: [
   { method: setUser, only: ['destroy', 'update'] },
-  { method: multerUpload.single('image[file]'), only: ['create'] },
+  { method: multerUpload.single('file[file]'), only: ['create'] },
   { method: authenticate, except: ['index', 'show'] },
   { method: setModel(File), only: ['show', 'destroy', 'update'] },
   { method: setModel(File, { forUser: true }), only: ['update', 'destroy'] }
