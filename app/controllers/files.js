@@ -29,17 +29,20 @@ const show = (req, res) => {
 }
 
 const create = (req, res, next) => {
-  console.log('req is ', req)
-  const awsFile = {
-    path: req.file.originalname,
+  const file = {
+    path: req.file.path,
     name: req.body.file.name
   }
-  awsUpload(awsFile)
+  // console.log(awsFile)
+  awsUpload(file)
     .then((s3Response) => {
       console.log('s3Response is ', s3Response)
+      console.log('file info is name, url, folder ', req.body.file.name, s3Response.Location, req.body.file.folder)
       return File.create({
-        url: s3Response.Location,
-        title: s3Response.Key
+        'name': req.body.file.name,
+        'url': s3Response.Location,
+        // 'folder': 'folder name'
+        // title: s3Response.Key
       })
     })
     .then((file) => res.status(201).json({file}))
