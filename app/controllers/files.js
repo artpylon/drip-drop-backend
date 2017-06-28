@@ -29,7 +29,7 @@ const show = (req, res) => {
 }
 
 const create = (req, res, next) => {
-
+  console.log('req body', req.body)
   const file = {
     path: req.file.path,
     name: req.body.file.name
@@ -40,7 +40,7 @@ const create = (req, res, next) => {
       return File.create({
         name: req.body.file.name,
         url: s3Response.Location,
-        folder: 'folder name',
+        folder: req.body.file.folder,
         _owner: req.user._id
       })
     })
