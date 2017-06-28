@@ -19,10 +19,12 @@ const fileSchema = new mongoose.Schema({
     required: true
   },
   pendingReview: {
-    type: Boolean
+    type: Boolean,
+    required: false
   },
   complete: {
-    type: Boolean
+    type: Boolean,
+    required: false
   }
 }, {
   timestamps: true,
