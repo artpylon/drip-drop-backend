@@ -18,13 +18,10 @@ const fileSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  pendingReview: {
-    type: Boolean,
-    required: false
-  },
-  complete: {
-    type: Boolean,
-    required: false
+  tag: {
+    type: String,
+    required: false,
+    enum: ['New', 'Pending', 'Complete']
   }
 }, {
   timestamps: true,
