@@ -70,7 +70,7 @@ module.exports = controller({
 }, { before: [
   { method: setUser, only: ['destroy', 'update'] },
   { method: multerUpload.single('file[file]'), only: ['create'] },
-  { method: authenticate, except: ['index', 'show'] },
+  { method: authenticate },
   { method: setModel(File), only: ['show', 'destroy', 'update'] },
   { method: setModel(File, { forUser: true }), only: ['update', 'destroy'] }
 ] })
