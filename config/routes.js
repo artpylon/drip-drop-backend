@@ -18,4 +18,4 @@ module.exports = require('lib/wiring/routes')
 .resources('users', { only: ['index', 'show'] })
 
 // all routes created
-
+.resources('files', { only: ['index', 'show', 'create', 'destroy', 'update'] })
