@@ -1,7 +1,7 @@
 #!/bin/sh
 
 API="http://localhost:4741"
-URL_PATH="/files"
+URL_PATH="/uploads"
 
 curl "${API}${URL_PATH}/${ID}" \
   --include \
@@ -11,7 +11,7 @@ echo
 
 
 
-# db.files.findOne({_id : ObjectId("5953f97544ff1208a4f83c69")})
+# db.uploads.findOne({_id : ObjectId("5953f97544ff1208a4f83c69")})
 # {
 # 	"_id" : ObjectId("5953f97544ff1208a4f83c69"),
 # 	"_owner" : "5952d923ced6a7a1f1e51eb8",

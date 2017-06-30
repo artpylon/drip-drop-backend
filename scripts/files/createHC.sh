@@ -1,19 +1,18 @@
 #!/bin/bash
 
 API="http://localhost:4741"
-URL_PATH="/sign-in"
-
-EMAIL="m98@email.com"
-PASSWORD="98"
+URL_PATH="/uploads"
 
 curl "${API}${URL_PATH}" \
   --include \
   --request POST \
   --header "Content-Type: application/json" \
+  --header "Authorization: Token token=${TOKEN}" \
   --data '{
-    "credentials": {
-      "email": "'"${EMAIL}"'",
-      "password": "'"${PASSWORD}"'"
+    "upload": {
+      "url": "abc",
+      "name": "mr rodgers",
+      "folder": "rodger images"
     }
   }'
 

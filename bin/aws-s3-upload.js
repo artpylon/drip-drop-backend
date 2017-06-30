@@ -6,7 +6,7 @@ const awsUpload = require('./../lib/aws-upload')
 const mongoose = require('./../app/middleware/mongoose')
 
 // require upload model
-const File = require('./../app/models/file')
+const Upload = require('./../app/models/upload')
 
 // create an object to store the values passed in by
 // the user/command line and env
@@ -17,7 +17,7 @@ const file = {
 
 awsUpload(file)
   .then((s3Response) => {
-    return File.create({
+    return Upload.create({
       url: s3Response.Location,
       title: s3Response.Key
     })
