@@ -41,6 +41,7 @@ const create = (req, res, next) => {
         name: req.body.file.name,
         url: s3Response.Location,
         folder: req.body.file.folder,
+        tag: req.body.file.tag,
         _owner: req.user._id
       })
     })
