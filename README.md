@@ -1,16 +1,45 @@
+# DripDrop File System
+DripDrop is a dropbox-like file storing application for ad agencies and marketing departments who need to review creative content before giving the OK to put it out into the world. Users can upload files, download files, and tag them to show whether they are new, being reviewed, or complete.
 
-# drip-drop-backend
 
-Front-end repository: https://github.com/the-best-org-lab/drip-drop-frontend
+# DripDrop File Routes
 
-Our App:
- A Dropbox-like app that allows users to upload files into a virtual file system.
- Ordinary users can only read/download a file where as Owners can do anything to
- the files they own.
+### Authentication
 
- Routes;
- Create - .../files, uses '.create' method
- Read - .../files and .../files/Id, Index and Show actions use '.find' and
- '.json' methods.
- Update - .../files/Id, uses the '.update' method
- Delete/Destroy - .../files/Id, uses the '.remove' method
+| Verb   | URI Pattern            | Controller#Action |
+|--------|------------------------|-------------------|
+| POST   | `/sign-up`             | `users#signup`    |
+| POST   | `/sign-in`             | `users#signin`    |
+| PATCH  | `/change-password/:id` | `users#changepw`  |
+| DELETE | `/sign-out/:id`        | `users#signout`   |
+
+
+### Users
+
+| Verb | URI Pattern   | Controller#Action |
+|------|---------------|-------------------|
+| GET  | `/users`      | `users#index`     |
+| GET  | `/users/:id`  | `users#show`      |
+
+
+### Files
+
+| Verb   | URI Pattern     | Controller#Action |
+|--------|-----------------|-------------------|
+| GET    | `/files`        | `files#index`     |
+| GET    | `/files/:id`    | `files#show`      |
+| POST   | `/files`        | `files#create`    |
+| PATCH  | `/files/:id`    | `files#update`    |
+| DELETE | `/files/:id`    | `files#destroy`   |
+
+
+*IMPORTANT LINKS*
+Deployed Back-End App:
+https://murmuring-plains-65734.herokuapp.com
+Backend Repo:
+https://github.com/the-best-org-lab/drip-drop-backend
+Deployed Front-End App:
+https://the-best-org-lab.github.io/drip-drop-frontend/
+Front-End Repo:
+https://github.com/the-best-org-lab/drip-drop-frontend
+
