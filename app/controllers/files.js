@@ -29,7 +29,6 @@ const show = (req, res) => {
 }
 
 const create = (req, res, next) => {
-  console.log('req body', req.body)
   const file = {
     path: req.file.path,
     name: req.body.file.name
